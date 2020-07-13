@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.2)
 
 IF(DEFINED ENV{TRAVIS_BUILD_NUMBER})
+    message("TRAVIS ENV VARIABLE DETECTED!")
     project(helloworld VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
     find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 ELSE()
@@ -27,6 +28,10 @@ set_target_properties(test_version PROPERTIES
         INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
         )
 
+target_include_directories(helloworld
+        PRIVATE "${CMAKE_BINARY_DIR}"
+        )
+
 target_link_libraries(helloworld_cli
         helloworld)
 
@@ -49,6 +54,6 @@ set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 
 include(CPack)
 
-include(CTest)
+enable_testing()
 
 add_test(helloworld_tests test_version)
