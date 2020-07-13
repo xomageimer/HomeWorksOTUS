@@ -1,5 +1,5 @@
+#include "lib.h"
 #include <iostream>
-#include <fstream>
 
 using namespace std;
 
