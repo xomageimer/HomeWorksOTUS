@@ -1,0 +1,13 @@
+# Target labels
+ gtest
+# Source files and their labels
+C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/HW1/Part2/Build/CMakeFiles/gtest
+C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/438fe498833d0cf4059bb463eb4b91f1/gtest.rule
+C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/574c14c01ea4bbcf8e18b1abf016ef1c/gtest-complete.rule
+C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-install.rule
+C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-mkdir.rule
+C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-download.rule
+C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-update.rule
+C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-patch.rule
+C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-configure.rule
+C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-build.rule

@@ -1,0 +1,1 @@
+cmd='C:/Users/xomag/Desktop/cmake-3.16.0-rc1-win64-x64/bin/cmake.exe;-GVisual Studio 15 2017;-DCMAKE_GENERATOR_INSTANCE:INTERNAL=C:/Program Files (x86)/Microsoft Visual Studio/2017/Community;<SOURCE_DIR><SOURCE_SUBDIR>'

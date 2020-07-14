@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/HW1/Part2/Build/CMakeFiles/gtest"
+		},
+		{
+			"file" : "C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/438fe498833d0cf4059bb463eb4b91f1/gtest.rule"
+		},
+		{
+			"file" : "C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/574c14c01ea4bbcf8e18b1abf016ef1c/gtest-complete.rule"
+		},
+		{
+			"file" : "C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-install.rule"
+		},
+		{
+			"file" : "C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-download.rule"
+		},
+		{
+			"file" : "C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-update.rule"
+		},
+		{
+			"file" : "C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-patch.rule"
+		},
+		{
+			"file" : "C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-configure.rule"
+		},
+		{
+			"file" : "C:/Users/xomag/CLionProjects/OtusHomeWorks/HomeWorks/CMakeFiles/2e1862a78a8b8940ece422d9d61f6359/gtest-build.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"gtest"
+		],
+		"name" : "gtest"
+	}
+}
