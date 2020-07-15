@@ -12,11 +12,11 @@ int main(int argc, char const *argv[])
 {
     try
     {
-        fstream f ("ip_filter.tsv");
+        //fstream f ("ip_filter.tsv");
 
         std::vector<std::vector<int>> ip_pool;
 
-        for(std::string line; std::getline(/*std::cin*/ f, line);)
+        for(std::string line; std::getline(std::cin /*f*/, line);)
         {
             std::vector<std::string> v = split(line, '\t');
             ip_pool.push_back(toInt(split(v.at(0), '.')));
