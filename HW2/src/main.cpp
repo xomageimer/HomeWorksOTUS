@@ -41,19 +41,20 @@ struct factorial<1>{
 };
 
 struct factorial_table{
-    long long table[10];
+    long long table[11];
 
     factorial_table (){
         table[0] = factorial<1>::value;
-        table[1] = factorial<2>::value;
-        table[2] = factorial<3>::value;
-        table[3] = factorial<4>::value;
-        table[4] = factorial<5>::value;
-        table[5] = factorial<6>::value;
-        table[6] = factorial<7>::value;
-        table[7] = factorial<8>::value;
-        table[8] = factorial<9>::value;
-        table[9] = factorial<10>::value;
+        table[1] = factorial<1>::value;
+        table[2] = factorial<2>::value;
+        table[3] = factorial<3>::value;
+        table[4] = factorial<4>::value;
+        table[5] = factorial<5>::value;
+        table[6] = factorial<6>::value;
+        table[7] = factorial<7>::value;
+        table[8] = factorial<8>::value;
+        table[9] = factorial<9>::value;
+        table[10] = factorial<10>::value;
     };
 
     long long operator()(size_t s){
@@ -65,6 +66,7 @@ struct factorial_table{
 
 int main() {
     using namespace std;
+    
 
     factorial_table tab{};
 

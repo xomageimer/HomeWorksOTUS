@@ -2,6 +2,10 @@ dist: xenial
 language: cpp
 compiler: clang
 before_script:
+  - git init
+  - git submodule init
+  - git submodule add https://github.com/google/googletest.git
+  - git submodule update --init --recursive
   - cd HW2
   - sudo apt-get install libgtest-dev -y
   - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
