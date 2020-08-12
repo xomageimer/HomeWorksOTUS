@@ -7,22 +7,25 @@ else()
 endif()
 
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/googletest"
-        "build-googletest"
+        "googletest"
         )
 
-add_executable(allocator src/main.cpp)
-
-add_executable(tests src/test.cpp)
-
 set (GTEST_INCLUDE_DIR "${gtest_SOURCE_DIR}/include")
-
-message(${GTEST_INCLUDE_DIR})
-
 include_directories("${gtest_SOURCE_DIR}/include")
 
-target_link_libraries(tests PRIVATE
-        ${GTEST_LIBRARY_DEBUG} ${GTEST_MAIN_LIBRARY_DEBUG} )
+add_executable(allocator src/main.cpp)
+add_library(tests src/test.cpp)
 
+#find_package(gtest REQUIRED)
+
+target_link_libraries(tests gtest gtest_main)
+
+set_target_properties(allocator tests PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON
+        COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
 
 install(TARGETS allocator RUNTIME DESTINATION bin)
 
@@ -42,6 +45,6 @@ enable_testing(
 )
 
 add_test(
-        NAME tests
+        NAME unit_tests
         COMMAND tests
 )
