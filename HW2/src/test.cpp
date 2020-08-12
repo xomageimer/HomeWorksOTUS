@@ -1,17 +1,15 @@
-#include "pch.h"
 #include "allocator.h"
 #include "List.h"
 #include "profile.h"
 #include <gtest/gtest.h>
 
-using namespace std;
 
 TEST (Allocator, allocate){
-    vector<int> v;
+    std::vector<int> v;
     for (size_t i = 0; i < 100; i++)
         v.emplace_back(i);
-    auto m_reserve = std::map<int, vector<int>, std::less<int>, PoolAllocator<std::pair<const int, vector<int>>, 10'000>>{};
-    auto m_std = std::map<int, vector<int>> {};
+    auto m_reserve = std::map<int, std::vector<int>, std::less<int>, PoolAllocator<std::pair<const int, std::vector<int>>, 10'000>>{};
+    auto m_std = std::map<int, std::vector<int>> {};
 
     {
         Code_Timer(custom alloc);
@@ -35,7 +33,7 @@ TEST (Allocator, allocate){
 
 
 TEST (LIST, RANGE_COUNSTRUCTOR){
-    vector<int> range {1,2,3,4,5,6,7,8,13};
+    std::vector<int> range {1,2,3,4,5,6,7,8,13};
     size_t sum = 0;
     size_t sum2 = 0;
     for (auto & i : range)
@@ -63,7 +61,3 @@ TEST (LIST, POP_BACK){
     ASSERT_EQ(l.size(), 0);
 }
 
-int main(int argc, char** argv){
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
