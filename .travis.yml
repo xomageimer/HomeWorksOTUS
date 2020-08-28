@@ -4,7 +4,6 @@ compiler: clang
 
 before_script:
   - cd HW3
-  - sudo apt-get install libgtest-dev -y
   - sudo apt-get install doxygen graphviz -y
   - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
   - sudo apt-get update -qq
