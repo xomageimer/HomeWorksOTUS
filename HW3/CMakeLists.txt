@@ -4,7 +4,7 @@ project(print_ip)
 
 if($ENV{TRAVIS_BUILD_NUMBER})
     project(print_ip VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
-    configure_file(version.h.in ${PROJECT_SOURCE_DIR}/version.h)
+    configure_file(version.h.in ${PROJECT_SOURCE_DIR}/src/version.h)
 else()
     project(print_ip VERSION 0.0.1)
 endif()
