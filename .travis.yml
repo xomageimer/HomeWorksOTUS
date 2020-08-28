@@ -2,11 +2,10 @@ dist: xenial
 language: cpp
 compiler: clang
 
-install:
-  - sudo apt-get install doxygen graphviz -y
 before_script:
   - cd HW3
   - sudo apt-get install libgtest-dev -y
+  - sudo apt-get install doxygen graphviz -y
   - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
   - sudo apt-get update -qq
 script:
@@ -21,7 +20,6 @@ deploy:
       - curl -T print_ip-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uhamstergamer:$BINTRAY_API_KEY "https://api.bintray.com/content/hamstergamer/otus_cpp/print_ip/$TRAVIS_BUILD_NUMBER/print_ip-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
   on:
       branch: master
-
   - provider: pages
     skip_cleanup: true
     local-dir: $TRAVIS_BUILD_DIR/doc/html
