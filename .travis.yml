@@ -29,7 +29,7 @@ deploy:
 
   - provider: pages
     skip_cleanup: true
-    local-dir: HW3/html
+    local-dir: HW3/doc/html
     github-token: $GITHUB_TOKEN
     on:
       branch: master
