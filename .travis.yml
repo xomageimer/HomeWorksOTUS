@@ -1,10 +1,21 @@
 dist: xenial
 language: cpp
-compiler: clang
-
-install:
-  - sudo apt-get install g++-8 cmake doxygen graphviz -y
+compiler: gcc
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-8
+      - g++-8
+      - cmake
 before_script:
+  - ln -s /usr/bin/gcc-8 /usr/local/bin/gcc
+  - ln -s /usr/bin/g++-8 /usr/local/bin/g++
+  - export CC=/usr/bin/gcc-8
+  - export CXX=/usr/bin/g++-8
+  - gcc -v && g++ -v && cmake --version
+  - sudo apt-get install doxygen graphviz -y
   - cd HW3
   - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
   - sudo apt-get update -qq
