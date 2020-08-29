@@ -29,7 +29,7 @@ deploy:
 
   - provider: pages
     skip_cleanup: true
-    local-dir: $TRAVIS_BUILD_DIR/html
+    local-dir: $TRAVIS_BUILD_DIR/HomeWorks/HW3/doc/html
     github-token: $GITHUB_TOKEN
     on:
       branch: master
