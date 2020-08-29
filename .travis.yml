@@ -12,7 +12,7 @@ before_script:
   - gcc --version
   - g++ --version
   - cmake --version
-  - doxygen doc/doxyfile
+  - doxygen /doc/doxyfile
 script:
   - cmake .
   - cmake --build .
