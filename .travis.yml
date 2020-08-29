@@ -15,10 +15,10 @@ before_script:
   - cmake --version
 script:
   - doxygen doc/doxyfile
-  - ls
   - cmake .
   - cmake --build .
   - cmake --build . --target package
+  - ls
 deploy:
   - provider: script
     skip_cleanup: true
@@ -29,7 +29,7 @@ deploy:
 
   - provider: pages
     skip_cleanup: true
-    local-dir: HomeWorksOTUS/HW3/doc/html
+    local-dir: HW3/html
     github-token: $GITHUB_TOKEN
     on:
       branch: master
