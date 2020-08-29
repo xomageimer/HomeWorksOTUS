@@ -8,6 +8,7 @@ install:
   - sudo apt-get install g++-8 cmake doxygen graphviz -y
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 60
 before_script:
+  - cd HW3
   - ls
   - gcc --version
   - g++ --version
