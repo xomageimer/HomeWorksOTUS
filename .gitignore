@@ -39,5 +39,7 @@
 *.vcxproj.filters
 *.vcxproj.user
 /Debug
+/HW2 (gtest)
+/TIMUS
 /HW1/source
 /HW3/contrib
