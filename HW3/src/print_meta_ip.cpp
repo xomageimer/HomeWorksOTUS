@@ -116,13 +116,14 @@ struct is_End : false_type {};
 template <typename F, typename O, template<typename F1 = F, typename O1 = O> class R>
 struct is_End<R<F, O>> : true_type {};
 
-                                 /*!
-                                  * \overload template <typename L> static constexpr void print_ip_impl()
-                                  * функция заглушка
-                                  */
-
+                                /*!
+                                * \overload template <typename L> static constexpr void print_ip_impl()
+                                * Вывод в "no impl" случае false значения у метафункции \ref is_End <R>
+                                */
 template <typename L>
-static constexpr enable_if_t<!is_End<L>::value, void> print_ip_impl();
+static constexpr enable_if_t<!is_End<L>::value, void> print_ip_impl(ostream & os){
+    os << "no impl" << endl;
+}
 
                                     /*!
                                      * \overload template <typename L> static constexpr void print_ip_impl()
@@ -133,22 +134,15 @@ static constexpr enable_if_t<!is_End<L>::value, void> print_ip_impl();
 
 
 template <typename L>
-static constexpr enable_if_t<is_End<L>::value, void> print_ip_impl(){
+static constexpr enable_if_t<is_End<L>::value, void> print_ip_impl(ostream & os){
     if (is_End<typename L::Other>::value) {
-        cout << L::value << '.';
-        print_ip_impl<typename L::Other>();
+        os << L::value << '.';
+        print_ip_impl<typename L::Other>(os);
     }
     else
-        cout << L::value << '\n';
+        os << L::value << '\n';
 }
-                                /*!
-                                * \overload template <typename L> static constexpr void print_ip_impl()
-                                * Вывод в "no impl" случае false значения у метафункции \ref is_End <R>
-                                */
-template <typename L>
-static constexpr enable_if_t<!is_End<L>::value, void> print_ip_impl(){
-   cout << "no impl" << endl;
-}
+
 
 // META_LIST end
 
@@ -184,16 +178,16 @@ template <typename T, typename U> struct all_same<T, U> : false_type {};
                                                                 */
 template <size_t i, typename T>
 struct tuple_iterate{
-    static constexpr void iterate(T & tup) {
-        tuple_iterate<i - 1, T>().iterate(tup);
-        cout << '.' << get<i>(tup);
+    static constexpr void iterate(T & tup, ostream & os = cout) {
+        tuple_iterate<i - 1, T>().iterate(tup, os);
+        os << '.' << get<i>(tup);
     }
 };
 
 template <typename T>
 struct tuple_iterate<0, T>{
-    static constexpr void iterate(T & tup) {
-        cout << get<0>(tup);
+    static constexpr void iterate(T & tup, ostream & os = cout) {
+        os << get<0>(tup);
     }
 };
                                                              /*! @} */
@@ -210,8 +204,8 @@ struct tuple_iterate<0, T>{
                                                             \return void
                                                             */
 template <typename ... Args>
-static constexpr void print_ip(){
-    cout << "no impl" << endl;
+static constexpr void print_ip(ostream & os = cout){
+    os << "no impl" << endl;
 }
 
                                                             /*!
@@ -221,8 +215,8 @@ static constexpr void print_ip(){
                                                             \return void
                                                             */
 template <typename T, T value>
-static constexpr enable_if_t<is_integral_v<remove_cv_t<T>>, void> print_ip(){
-    print_ip_impl<typename Initialization_Meta_List<T, value>::extract>();
+static constexpr enable_if_t<is_integral_v<remove_cv_t<T>>, void> print_ip(ostream & os = cout){
+    print_ip_impl<typename Initialization_Meta_List<T, value>::extract>(os);
 }
 
 
@@ -234,12 +228,12 @@ static constexpr enable_if_t<is_integral_v<remove_cv_t<T>>, void> print_ip(){
                                                            \return void
                                                            */
 template <typename T>
-static constexpr enable_if_t< is_same_v<decltype(is_vector_or_list<T>()), void> && ( is_same_v<decltype(declval<T>().emplace_back(typename T::value_type())), void> || is_same_v<decltype(declval<T>().emplace_back(typename T::value_type())), typename T::reference>), void> print_ip(T container) {
+static constexpr enable_if_t< is_same_v<decltype(is_vector_or_list<T>()), void> && ( is_same_v<decltype(declval<T>().emplace_back(typename T::value_type())), void> || is_same_v<decltype(declval<T>().emplace_back(typename T::value_type())), typename T::reference>), void> print_ip(T container, ostream & os = cout) {
     size_t j = container.size();
     for (auto & i : container)
         if (--j)
-            cout << i << '.';
-    cout << *prev(container.end()) << endl;
+            os << i << '.';
+    os << *prev(container.end()) << endl;
 }
 
                                                            /*!
@@ -252,9 +246,9 @@ static constexpr enable_if_t< is_same_v<decltype(is_vector_or_list<T>()), void> 
 
 
 template <typename T>
-static constexpr enable_if_t<is_same_v<string, T>, void> print_ip(T str)
+static constexpr enable_if_t<is_same_v<string, T>, void> print_ip(T str, ostream & os = cout)
 {
-    cout << str << endl;
+    os << str << endl;
 }
 
                                                            /*!
@@ -266,30 +260,10 @@ static constexpr enable_if_t<is_same_v<string, T>, void> print_ip(T str)
                                                           */
 
 template <typename ... Args>
-static constexpr enable_if_t<all_same<Args...>::value, void> print_ip (tuple<Args...> tup) {
+static constexpr enable_if_t<all_same<Args...>::value, void> print_ip (tuple<Args...> tup, ostream & os = cout) {
     const size_t tup_size = tuple_size<tuple<Args...>>::value - 1;
-    tuple_iterate<tup_size, tuple<Args...>>().iterate(tup);
-    cout << endl;
+    tuple_iterate<tup_size, tuple<Args...>>().iterate(tup, os);
+    os << endl;
 }
 
                                                             /*! @} */
-
-int main() {
-
-    print_ip<char, -1>();
-
-    print_ip<short, 0>();
-
-    print_ip<int, 2130706433>();
-
-    print_ip<long long, 8875824491850138409>();
-
-    print_ip<string>("255.#SECRET#.123.11");
-
-    print_ip<vector<int>>(vector<int> {1,2,3,4});
-
-    print_ip<list<string>>( list<string> {"12", "114", "234", "11"});
-
-    print_ip(make_tuple(213, 0, 13, 255));
-
-}

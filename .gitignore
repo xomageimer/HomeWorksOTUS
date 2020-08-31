@@ -27,6 +27,7 @@
 *.lib
 
 # Executables
+*.txt
 *.exe
 *.out
 *.app
@@ -38,4 +39,5 @@
 *.vcxproj.filters
 *.vcxproj.user
 /Debug
-/source
+/HW1/source
+/HW3/contrib
