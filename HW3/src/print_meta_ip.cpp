@@ -184,6 +184,8 @@ struct tuple_iterate{
     }
 };
 
+
+
 template <typename T>
 struct tuple_iterate<0, T>{
     static constexpr void iterate(T & tup, ostream & os = cout) {
