@@ -15,17 +15,17 @@ add_subdirectory(
 
 add_executable(print_ip src/main.cpp src/print_meta_ip.cpp src/pch.cpp)
 
-add_executable(test test/print_test.cpp src/print_meta_ip.cpp src/pch.cpp)
+add_executable(print_test test/print_test.cpp src/print_meta_ip.cpp src/pch.cpp)
 
 target_link_libraries(
-        test
+        print_test
         PRIVATE
         gtest gtest_main gmock
 )
 
 include_directories(src)
 
-set_target_properties(print_ip PROPERTIES
+set_target_properties(print_ip print_test PROPERTIES
         CXX_STANDARD 17
         CXX_STANDARD_REQUIRED ON
         COMPILE_OPTIONS "-Wall;-Wextra;-Wpedantic"
@@ -45,4 +45,4 @@ set(CPACK_PACKAGE_CONTACT xomageimer@gmail.com)
 include(CPack)
 
 enable_testing()
-add_test(NAME print_tests COMMAND test)
+add_test(NAME print_tests COMMAND print_test)
