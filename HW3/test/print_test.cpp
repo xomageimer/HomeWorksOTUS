@@ -4,6 +4,15 @@
 
 using namespace std;
 
+TEST (valid_cast, first_case){
+    int a;
+    double b = 5.15;
+
+    a = static_cast<int>(b);
+
+    ASSERT_EQ(5, a);
+}
+
 TEST (integral_types, first_case){
     ostringstream answer;
     print_ip<char, -1>(answer);
