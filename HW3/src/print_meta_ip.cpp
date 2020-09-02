@@ -124,6 +124,7 @@ struct is_not_End<R<F, O>> : true_type {};
 
 template <typename L>
 static constexpr enable_if_t<!is_not_End<typename L::Other>::value, void> print_ip_impl(ostream & os){
+    cerr << "LAST: " << __PRETTY_FUNCTION__ << endl;
     os << L::value << '\n';
 }
 
@@ -136,9 +137,10 @@ static constexpr enable_if_t<!is_not_End<typename L::Other>::value, void> print_
 
 
 template <typename L>
-static constexpr enable_if_t<is_not_End<typename L::Other>::value, void> print_ip_impl(ostream & os){
-        os << L::value << '.';
-        print_ip_impl<typename L::Other>(os);
+static constexpr enable_if_t<is_not_End<typename L::Other>::value, void> print_ip_impl(ostream & os = cout){
+    cerr << __PRETTY_FUNCTION__ << endl;
+    os << L::value << '.';
+    print_ip_impl<typename L::Other>(os);
 }
 
 
