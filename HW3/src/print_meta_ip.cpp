@@ -104,7 +104,7 @@ struct Initialization_Meta_List {
                                  */
 
 template <class R>
-struct is_End : false_type {};
+struct is_not_End : false_type {};
 
                                 /*!
                                  * мета_IF для проверки, является ли элемент последним в мета листе
@@ -114,14 +114,17 @@ struct is_End : false_type {};
                                  */
 
 template <typename F, typename O, template<typename F1 = F, typename O1 = O> class R>
-struct is_End<R<F, O>> : true_type {};
+struct is_not_End<R<F, O>> : true_type {};
+
+template <typename F, template<typename F1 = F> class R>
+struct is_not_End<R<F>> : false_type {};
 
                                 /*!
                                 * \overload template <typename L> static constexpr void print_ip_impl()
-                                * Вывод в "no impl" случае false значения у метафункции \ref is_End <R>
+                                * Вывод в "no impl" случае false значения у метафункции \ref is_not_End <R>
                                 */
 template <typename L>
-static constexpr enable_if_t<!is_End<L>::value, void> print_ip_impl(ostream & os){
+static constexpr enable_if_t<!is_not_End<L>::value, void> print_ip_impl(ostream & os){
     os << "no impl" << endl;
 }
 
@@ -134,8 +137,8 @@ static constexpr enable_if_t<!is_End<L>::value, void> print_ip_impl(ostream & os
 
 
 template <typename L>
-static constexpr enable_if_t<is_End<L>::value, void> print_ip_impl(ostream & os){
-    if (is_End<typename L::Other>::value) {
+static constexpr enable_if_t<is_not_End<L>::value, void> print_ip_impl(ostream & os){
+    if (is_not_End<typename L::Other>::value) {
         os << L::value << '.';
         print_ip_impl<typename L::Other>(os);
     }
