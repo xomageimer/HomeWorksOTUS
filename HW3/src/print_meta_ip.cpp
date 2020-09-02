@@ -53,13 +53,31 @@ struct Meta_List<F, O>{
     using Front = F;
     using Other = O;
     static constexpr auto value = F::value;
+    /*!
+     * функция костыль для того, чтобы индетифицировать через decltype этот класс и сделать соответствующую перегрузку (опеределить где мета лист начинается)
+     * \return void
+     */
+    void NotEnd() {
+
+    }
+
 };
 
                                 /*!
                                  * заглушка на конец листа
                                  */
+
+
 template <>
-struct Meta_List<>{};
+struct Meta_List<>{
+    /*!
+     * функция костыль для того, чтобы индетифицировать через decltype этот класс и сделать соответствующую перегрузку (опеределить где мета лист кончается)
+     * \return void
+     */
+    void End () {
+
+    }
+};
 
                                 /*!
                                  * функция мета листа для создания дерева с определнным количеством элементов
@@ -99,32 +117,17 @@ struct Initialization_Meta_List {
 };
 
                                 /*!
-                                 * мета_IF для проверки, является ли элемент последним в мета листе
-                                 * @tparam R отрезок мета листа
-                                 */
-
-template <class R>
-struct is_not_End : false_type {};
-
-                                /*!
-                                 * мета_IF для проверки, является ли элемент последним в мета листе
-                                 * @tparam F первый элемент отрезка
-                                 * @tparam O отрезок мета листа (extract)
-                                 * @tparam R мета лист
-                                 */
-
-template <typename F, typename O, template<typename F1 = F, typename O1 = O> class R>
-struct is_not_End<R<F, O>> : true_type {};
-
-
-                                /*!
                                 * \overload template <typename L> static constexpr void print_ip_impl()
                                 * Вывод в случае false значения у метафункции \ref is_not_End <R> для хвостовой части
                                 */
 
 template <typename L>
-static constexpr enable_if_t<!is_not_End<typename L::Other>::value, void> print_ip_impl(ostream & os){
-    cerr << "LAST: " << __PRETTY_FUNCTION__ << endl;
+static constexpr auto print_ip_impl(ostream & os) noexcept ->
+    decltype (
+        declval<typename L::Other>().End(),
+        void()
+        ){
+    //cerr << "LAST: " << __PRETTY_FUNCTION__ << endl;
     os << L::value << '\n';
 }
 
@@ -137,8 +140,12 @@ static constexpr enable_if_t<!is_not_End<typename L::Other>::value, void> print_
 
 
 template <typename L>
-static constexpr enable_if_t<is_not_End<typename L::Other>::value, void> print_ip_impl(ostream & os = cout){
-    cerr << __PRETTY_FUNCTION__ << endl;
+static constexpr auto print_ip_impl(ostream & os = cout)noexcept ->
+    decltype (
+    declval<typename L::Other>().NotEnd(),
+            void()
+    ){
+   // cerr << __PRETTY_FUNCTION__ << endl;
     os << L::value << '.';
     print_ip_impl<typename L::Other>(os);
 }
