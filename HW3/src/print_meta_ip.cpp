@@ -119,9 +119,13 @@ struct is_not_End<R<F, O>> : true_type {};
 
                                 /*!
                                 * \overload template <typename L> static constexpr void print_ip_impl()
-                                * Вывод в "no impl" случае false значения у метафункции \ref is_not_End <R>
+                                * Вывод в случае false значения у метафункции \ref is_not_End <R> для хвостовой части
                                 */
 
+template <typename L>
+static constexpr enable_if_t<!is_not_End<typename L::Other>::value, void> print_ip_impl(ostream & os){
+    os << L::value << '\n';
+}
 
                                     /*!
                                      * \overload template <typename L> static constexpr void print_ip_impl()
@@ -132,13 +136,9 @@ struct is_not_End<R<F, O>> : true_type {};
 
 
 template <typename L>
-static constexpr enable_if_t<is_not_End<L>::value, void> print_ip_impl(ostream & os){
-    if constexpr (is_not_End<typename L::Other>::value) {
+static constexpr enable_if_t<is_not_End<typename L::Other>::value, void> print_ip_impl(ostream & os){
         os << L::value << '.';
         print_ip_impl<typename L::Other>(os);
-    }
-    else
-        os << L::value << '\n';
 }
 
 
