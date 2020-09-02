@@ -116,9 +116,6 @@ struct is_not_End : false_type {};
 template <typename F, typename O, template<typename F1 = F, typename O1 = O> class R>
 struct is_not_End<R<F, O>> : true_type {};
 
-template <typename F, template<typename F1 = F> class R>
-struct is_not_End<R<F>> : false_type {};
-
                                 /*!
                                 * \overload template <typename L> static constexpr void print_ip_impl()
                                 * Вывод в "no impl" случае false значения у метафункции \ref is_not_End <R>
