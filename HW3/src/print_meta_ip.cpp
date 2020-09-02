@@ -116,14 +116,12 @@ struct is_not_End : false_type {};
 template <typename F, typename O, template<typename F1 = F, typename O1 = O> class R>
 struct is_not_End<R<F, O>> : true_type {};
 
+
                                 /*!
                                 * \overload template <typename L> static constexpr void print_ip_impl()
                                 * Вывод в "no impl" случае false значения у метафункции \ref is_not_End <R>
                                 */
-template <typename L>
-static constexpr enable_if_t<!is_not_End<L>::value, void> print_ip_impl(ostream & os){
-    os << "no impl" << endl;
-}
+
 
                                     /*!
                                      * \overload template <typename L> static constexpr void print_ip_impl()
@@ -135,7 +133,7 @@ static constexpr enable_if_t<!is_not_End<L>::value, void> print_ip_impl(ostream 
 
 template <typename L>
 static constexpr enable_if_t<is_not_End<L>::value, void> print_ip_impl(ostream & os){
-    if (is_not_End<typename L::Other>::value) {
+    if constexpr (is_not_End<typename L::Other>::value) {
         os << L::value << '.';
         print_ip_impl<typename L::Other>(os);
     }

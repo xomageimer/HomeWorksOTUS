@@ -33,7 +33,6 @@ set_target_properties(print_ip print_test PROPERTIES
 
 install(TARGETS print_ip RUNTIME DESTINATION bin)
 
-
 set(CPACK_GENERATOR DEB)
 
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
