@@ -26,7 +26,7 @@ target_include_directories(Editor PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/dependence/
 find_package(OpenGL REQUIRED)
 
 #target_link_libraries(Editor  OpenGL::GL -lopengl32) for windows
-target_link_libraries(Editor  OpenGL::OpenGL)
+target_link_libraries(Editor  ${OPENGL_INCLUDE_DIRS})
 target_link_libraries(Editor  glfw)
 
 install(TARGETS Editor RUNTIME DESTINATION bin)
