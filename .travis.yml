@@ -8,10 +8,10 @@ install:
   - sudo apt-get install g++-9 cmake doxygen graphviz -y
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 60
   - sudo apt-get install libgl1-mesa-dev
-  - sudo apt install libxrandr-dev
-  - sudo apt install libxinerama-dev
-  - sudo apt install libcursor-dev
-  - sudo apt install libxi-dev
+  - sudo apt-get install libxrandr-dev
+  - sudo apt-get install libxinerama-dev
+  - sudo apt-get install libcursor-dev
+  - sudo apt-get install libxi-dev
 before_script:
   - cd HW4
   - ls
