@@ -19,7 +19,9 @@ before_script:
   - g++ --version
   - cmake --version
 script:
-  - doxygen doc/Doxyfile
+  - cd doc
+  - doxygen Doxyfile
+  - cd ..
   - cmake .
   - cmake --build .
   - cmake --build . --target package
@@ -31,7 +33,7 @@ deploy:
 
   - provider: pages
     skip_cleanup: true
-    local_dir: $TRAVIS_BUILD_DIR/HW4/html
+    local_dir: $TRAVIS_BUILD_DIR/HW4/doc/html
     github_token: $GITHUB_TOKEN
     on:
       branch: master
