@@ -1,0 +1,4 @@
+<map id="Primitives::IShape" name="Primitives::IShape">
+<area shape="rect" id="node2" href="$struct_primitives_1_1_rectangle.html" title="Primitives::Rectangle" alt="" coords="5,80,160,107"/>
+<area shape="rect" id="node3" href="$struct_primitives_1_1_triangle.html" title="Primitives::Triangle" alt="" coords="185,80,325,107"/>
+</map>

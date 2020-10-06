@@ -1,0 +1,8 @@
+<map id="Widgets::IWidget" name="Widgets::IWidget">
+<area shape="rect" id="node2" href="$struct_widgets_1_1_create_color_button.html" title="Widgets::CreateColorButton" alt="" coords="187,5,385,32"/>
+<area shape="rect" id="node3" href="$struct_widgets_1_1_create_model_button___rectangle.html" title="Класс кнопки создания прямоугольника Необходим для корректной работы с прямоугольниками ..." alt="" coords="184,57,388,98"/>
+<area shape="rect" id="node4" href="$struct_widgets_1_1_create_model_button___triangle.html" title="Класс кнопки создания треугольника Необходим для корректной работы с треугольниками ..." alt="" coords="184,122,388,163"/>
+<area shape="rect" id="node5" href="$struct_widgets_1_1_export_ground_button.html" title="Widgets::ExportGroundButton" alt="" coords="181,188,391,215"/>
+<area shape="rect" id="node6" href="$struct_widgets_1_1_import_ground_button.html" title="Widgets::ImportGroundButton" alt="" coords="180,239,392,265"/>
+<area shape="rect" id="node7" href="$struct_widgets_1_1_new_ground_button.html" title="Widgets::NewGroundButton" alt="" coords="187,289,385,316"/>
+</map>
