@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.1)
 
 set(PROJECT_NAME_ Matrix)
-project(${PROJECT_NAME_})
+if($ENV{TRAVIS_BUILD_NUMBER})
+    project(PROJECT_NAME_  VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
+else()
+    project(PROJECT_NAME_  VERSION 0.0.1)
+endif()
 
 add_executable(${PROJECT_NAME_} src/main.cpp)
 
@@ -31,6 +35,8 @@ set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 
 set(CPACK_PACKAGE_CONTACT xomageimer@gmail.com)
+
+set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 
 include(CPack)
 include(CTest)
