@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.1)
 
 set(PROJECT_NAME_ Matrix)
 if($ENV{TRAVIS_BUILD_NUMBER})
-    project(PROJECT_NAME_  VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
+    project(${PROJECT_NAME_}  VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 else()
-    project(PROJECT_NAME_  VERSION 0.0.1)
+    project(${PROJECT_NAME_}  VERSION 0.0.1)
 endif()
 
 add_executable(${PROJECT_NAME_} src/main.cpp)
