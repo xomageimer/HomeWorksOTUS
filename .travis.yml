@@ -5,35 +5,21 @@ before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get update -qq
 install:
-  - sudo apt-get install g++-9 cmake doxygen graphviz -y
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 60
-  - sudo apt-get install libgl1-mesa-dev
-  - sudo apt-get install libxrandr-dev
-  - sudo apt-get install libxinerama-dev
-  - sudo apt-get install libxcursor-dev
-  - sudo apt-get install libxi-dev
 before_script:
-  - cd HW4
+  - cd HW5
   - ls
   - gcc --version
   - g++ --version
   - cmake --version
 script:
-  - cd doc
-  - doxygen Doxyfile
   - cd ..
   - cmake .
   - cmake --build .
+  - cmake --build . --target test
   - cmake --build . --target package
 deploy:
   - provider: script
     skip_cleanup: true
     script:
-      - curl -f -T Editor-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uhamstergamer:$BINTRAY_API_KEY "https://api.bintray.com/content/hamstergamer/otus_cpp/Editor/$TRAVIS_BUILD_NUMBER/Editor-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
-
-  - provider: pages
-    skip_cleanup: true
-    local_dir: $TRAVIS_BUILD_DIR/HW4/doc/html
-    github_token: $GITHUB_TOKEN
-    on:
-      branch: master
+      - curl -f -T Matrix-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uhamstergamer:$BINTRAY_API_KEY "https://api.bintray.com/content/hamstergamer/otus_cpp/Matrix/$TRAVIS_BUILD_NUMBER/Matrix-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
