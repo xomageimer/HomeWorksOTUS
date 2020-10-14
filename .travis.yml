@@ -14,7 +14,6 @@ before_script:
   - g++ --version
   - cmake --version
 script:
-  - cd ..
   - cmake .
   - cmake --build .
   - cmake --build . --target test

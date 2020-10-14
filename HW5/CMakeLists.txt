@@ -13,7 +13,7 @@ set_target_properties(${PROJECT_NAME_} tests PROPERTIES
         COMPILE_OPTIONS "-Wall;-Wextra;-Wpedantic;"
         )
 
-include_directories(src)
+target_include_directories(tests PRIVATE src)
 
 add_subdirectory(
         "contrib/gtest"
@@ -33,6 +33,7 @@ set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 set(CPACK_PACKAGE_CONTACT xomageimer@gmail.com)
 
 include(CPack)
+include(CTest)
 
 enable_testing()
-add_test(NAME test_matrix COMMAND tests)
+add_test(test_matrix tests)
