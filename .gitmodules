@@ -10,3 +10,6 @@
 [submodule "HW5/contrib/gtest"]
 	path = HW5/contrib/gtest
 	url = https://github.com/google/googletest.git
+[submodule "HW6/contrib/gtest"]
+	path = HW6/contrib/gtest
+	url = https://github.com/google/googletest.git

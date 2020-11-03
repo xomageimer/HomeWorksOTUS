@@ -8,7 +8,7 @@ install:
   - sudo apt-get install g++-9 cmake
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 60
 before_script:
-  - cd HW5
+  - cd HW6
   - ls
   - gcc --version
   - g++ --version
@@ -22,4 +22,4 @@ deploy:
   - provider: script
     skip_cleanup: true
     script:
-      - curl -f -T Matrix-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uhamstergamer:$BINTRAY_API_KEY "https://api.bintray.com/content/hamstergamer/otus_cpp/Matrix/$TRAVIS_BUILD_NUMBER/Matrix-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
+      - curl -f -T bulk-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uhamstergamer:$BINTRAY_API_KEY "https://api.bintray.com/content/hamstergamer/otus_cpp/bulk/$TRAVIS_BUILD_NUMBER/bulk-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
