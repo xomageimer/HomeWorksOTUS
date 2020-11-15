@@ -10,6 +10,8 @@ private:
     std::shared_ptr<struct IHandler> handler;
     std::istream& input;
     std::shared_ptr<struct IController> controller;
+
+    bool end = false;
 public:
     const int counter_cmd;
 
@@ -17,6 +19,9 @@ public:
 
     void ParseStandard(int n);
     void ParseDynamic(int n);
+
+    bool Process();
+    void End();
 
     [[nodiscard]] std::string GetCmd() const;
     [[nodiscard]] bool CheckSymb(char delim = '{') const;

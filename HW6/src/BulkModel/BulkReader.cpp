@@ -1,19 +1,17 @@
 #include "BulkReader.h"
 
-BulkReader::BulkReader(std::istream & in, std::shared_ptr<struct IController> contr, int c) : input(in), controller(contr), counter_cmd(c) {
-
-}
+BulkReader::BulkReader(std::istream & in, std::shared_ptr<struct IController> contr, int c) : input(in), controller(contr), counter_cmd(c) {}
 
 void BulkReader::ParseStandard(int n) {
     handler = std::make_shared<StandardHandler>(n);
     handler->SetController(controller);
-    handler->Execute(this);
+  //  handler->Execute(this);
 }
 
 void BulkReader::ParseDynamic(int n) {
     handler = std::make_shared<DynamicHandler>(n);
     handler->SetController(controller);
-    handler->Execute(this);
+   // handler->Execute(this);
 }
 
 std::string BulkReader::GetCmd() const {
@@ -32,6 +30,19 @@ bool BulkReader::CheckSymb(char delim) const {
     }
 }
 
+bool BulkReader::Process() {
+    if (!end) {
+        handler->Execute(this);
+        return !end;
+    } else {
+        return end;
+    }
+}
+
+void BulkReader::End() {
+    end = true;
+}
+
 void StandardHandler::Execute(BulkReader *Application) {
     if (Application->CheckSymb('{')) {
         counter_cmd = 0;
@@ -40,6 +51,7 @@ void StandardHandler::Execute(BulkReader *Application) {
     } else if (Application->CheckSymb(EOF)){
         counter_cmd = 0;
         controller->HandleEvent(job());
+        Application->End();
     } else {
         if (job().type == Event::Type::WRITE){
             controller->HandleEvent(job(), Application->GetCmd());
@@ -66,6 +78,7 @@ void DynamicHandler::Execute(BulkReader *Application) {
     if (Application->CheckSymb(EOF)) {
         counter_cmd = 0;
         controller->HandleEvent(job());
+        Application->End();
         return;
     }
     if (Application->CheckSymb('{')) {
