@@ -5,7 +5,7 @@ void Directory_Compositer::Set_Directory(const std::string &path_) {
             tokenizer{path_, boost::char_separator<char>{"\""}};
 
     boost::filesystem::directory_iterator begin(boost::filesystem::path()/(*tokenizer.begin()));
-    include_dirs.emplace_back(boost::filesystem::path()/path_);
+    include_dirs.emplace_back(boost::filesystem::absolute(boost::filesystem::path()/path_));
 }
 
 void Directory_Compositer::Unset_Directory(const std::string &path_) {
@@ -13,7 +13,7 @@ void Directory_Compositer::Unset_Directory(const std::string &path_) {
             tokenizer{path_, boost::char_separator<char>{"\""}};
 
     boost::filesystem::directory_iterator begin(boost::filesystem::path()/(*tokenizer.begin()));
-    exclude_dirs.emplace_back(boost::filesystem::path()/path_);
+    exclude_dirs.emplace_back(boost::filesystem::absolute(boost::filesystem::path()/path_));
 }
 
 void Directory_Compositer::Set_Hasher(const Files_Collection::HASH &hash) {
@@ -38,8 +38,9 @@ void Directory_Compositer::run() {
                     }
                     break;
                 case boost::filesystem::directory_file:
-                    if (find(exclude_dirs.begin(), exclude_dirs.end(), *dir) == exclude_dirs.end() && is_go_around)
+                    if (find(exclude_dirs.begin(), exclude_dirs.end(), *begin) == exclude_dirs.end() && is_go_around) {
                         tmp.push_back(begin->path());
+                    }
                     break;
                 default:
                     break;

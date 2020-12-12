@@ -36,7 +36,7 @@ void Command_interpreter::execute(Directory_Compositer & directoryCompositer) co
                 directoryCompositer.Set_Directory(path);
             }
         } else {
-            directoryCompositer.Set_Directory((boost::filesystem::path()/"./").string());
+            directoryCompositer.Set_Directory((boost::filesystem::current_path()).string());
         }
         if (m_vm.count("exclude")){
             for (auto & path : m_vm["exclude"].as<std::vector<std::string>>()){

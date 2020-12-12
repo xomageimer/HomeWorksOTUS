@@ -43,44 +43,49 @@ bool Files_Collection::Accum_Hashsum(file_hashsum::iterator main,
     is1.open(main->first.string());
     is2.open(second->first.string());
 
-    is1.seekg(main->second.size() * block_size, std::ios::beg);
-    is2.seekg(second->second.size() * block_size, std::ios::beg);
 
     std::string buffer_1(block_size, '\0');
     std::string buffer_2(block_size, '\0');
 
-    while (!is1.eof() || !is2.eof()) {
-        if (main->second.size() < second->second.size()) {
-            is1.read(&buffer_1[0], block_size);
-            main->second.push_back(Hasher(&buffer_1[0]));
-        } else if (main->second.size() > second->second.size()) {
-            is2.read(&buffer_2[0], block_size);
-            second->second.push_back(Hasher(&buffer_2[0]));
-        } else {
-            is1.read(&buffer_1[0], block_size);
-            is2.read(&buffer_2[0], block_size);
-            main->second.push_back(Hasher(&buffer_1[0]));
-            second->second.push_back(Hasher(&buffer_2[0]));
-        }
-        buffer_1.assign(block_size, '\0');
-        buffer_2.assign(block_size, '\0');
+    if (is1.is_open() && is2.is_open()) {
+        while (!is1.eof() || !is2.eof()) {
+            if(!is1.eof())
+                is1.seekg(main->second.size() * block_size, std::ios::beg);
+            if (!is2.eof())
+                is2.seekg(second->second.size() * block_size, std::ios::beg);
 
-        if (!std::equal(main->second.begin(),
-                        main->second.begin() + ((main->second.size() > second->second.size())
-                                                ? second->second.size()
-                                                : main->second.size())
-                , second->second.begin())) {
-            is1.close();
-            is2.close();
-            return false;
+            if (main->second.size() < second->second.size()) {
+                is1.read(&buffer_1[0], block_size);
+                main->second.push_back(Hasher(&buffer_1[0]));
+            } else if (main->second.size() > second->second.size()) {
+                is2.read(&buffer_2[0], block_size);
+                second->second.push_back(Hasher(&buffer_2[0]));
+            } else {
+                is1.read(&buffer_1[0], block_size);
+                is2.read(&buffer_2[0], block_size);
+                main->second.push_back(Hasher(&buffer_1[0]));
+                second->second.push_back(Hasher(&buffer_2[0]));
+            }
+            buffer_1.assign(block_size, '\0');
+            buffer_2.assign(block_size, '\0');
+
+            if (!std::equal(main->second.begin(),
+                            main->second.begin() + ((main->second.size() > second->second.size())
+                                                    ? second->second.size()
+                                                    : main->second.size()), second->second.begin())) {
+                is1.close();
+                is2.close();
+                return false;
+            }
         }
+        is1.close();
+        is2.close();
+        if (main->second == second->second) {
+            return true;
+        } else
+            return false;
     }
-    is1.close();
-    is2.close();
-    if (main->second == second->second) {
-        return true;
-    } else
-        return false;
+    else return false;
 }
 
 std::string toString(const boost::uuids::detail::md5::digest_type &digest)
@@ -108,6 +113,8 @@ size_t Files_Collection::Hasher(char * mas) {
             result.process_bytes(mas, block_size);
             return result.checksum();
         }
+        default:
+            return 0;
     }
 }
 
