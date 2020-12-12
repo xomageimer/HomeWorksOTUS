@@ -24,6 +24,8 @@ add_executable(bayan
         src/Directory_Compositer.cpp
         src/Files_Collection.cpp)
 
+target_include_directories(bayan PRIVATE contrib/boostorg/include/boost)
+
 add_executable(tests
         test/glob_test.cpp
         test/bayan_tests.cpp
@@ -32,6 +34,8 @@ add_executable(tests
         src/Command_interpreter.cpp
         src/Directory_Compositer.cpp
         src/Files_Collection.cpp test/bayan_tests.cpp)
+
+target_include_directories(tests PRIVATE contrib/boostorg/include/boost)
 
 target_link_libraries(bayan
         ${Boost_LIBRARIES}

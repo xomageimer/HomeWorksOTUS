@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <boost/filesystem/operations.hpp>
-#include <boost/uuid/detail/md5.hpp>
+#include <uuid/detail/md5.hpp>
 #include <boost/crc.hpp>
 
 using file_hashsum = std::map<boost::filesystem::path, std::vector<size_t>>;
