@@ -7,10 +7,7 @@ before_install:
 install:
   - sudo apt-get install g++-9 cmake
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 60
-  - sudo apt-get install libboost-system-dev
-  - sudo apt-get install libboost-program-options-dev
-  - sudo apt-get install libboost-regex-dev
-  - sudo apt-get install libboost-filesystem-dev
+  - sudo apt-get install libboost-all-dev
 before_script:
   - cd HW7
   - ls
