@@ -59,8 +59,6 @@ bool Files_Collection::Accum_Hashsum(file_hashsum::iterator main,
             main->second.push_back(Hasher(&buffer_1[0]));
             second->second.push_back(Hasher(&buffer_2[0]));
         }
-        auto s = buffer_1.size();
-        auto s2 = buffer_2.size();
         buffer_1.assign(block_size, '\0');
         buffer_2.assign(block_size, '\0');
 
