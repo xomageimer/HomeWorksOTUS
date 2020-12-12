@@ -26,12 +26,12 @@ add_executable(bayan
 
 add_executable(tests
         test/glob_test.cpp
-
+        test/bayan_tests.cpp
 
         src/Glob_Parser.cpp
         src/Command_interpreter.cpp
         src/Directory_Compositer.cpp
-        src/Files_Collection.cpp)
+        src/Files_Collection.cpp test/bayan_tests.cpp)
 
 target_link_libraries(bayan
         ${Boost_LIBRARIES}

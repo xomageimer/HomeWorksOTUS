@@ -29,7 +29,7 @@ public:
 
     void Search_Duplicate();
 
-    void Output() const;
+    void Output(std::ostream & out, bool) const;
 
 private:
     bool Accum_Hashsum(file_hashsum::iterator main, file_hashsum::iterator second,

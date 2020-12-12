@@ -118,13 +118,13 @@ size_t Files_Collection::Hasher(char * mas) {
     }
 }
 
-void Files_Collection::Output() const {
+void Files_Collection::Output(std::ostream & out, bool is_full) const {
     for (auto & i : files){
-        std::cout << i.first << std::endl;
+        out << ((is_full) ? i.first : i.first.filename().string()) << std::endl;
         for (auto & j : i.second){
-            std::cout << j << std::endl;
+            out << ((is_full) ? j : j.filename().string()) << std::endl;
         }
-        std::cout << std::endl;
+        out << std::endl;
     }
 }
 

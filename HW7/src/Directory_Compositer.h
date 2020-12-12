@@ -15,7 +15,7 @@
 
 struct Directory_Compositer {
 public:
-
+    Directory_Compositer(std::ostream & o = std::cout, bool full_name = true) : out(o), is_full_name(full_name) {}
     void Set_Directory(const std::string & path_);
     void Unset_Directory(const std::string & path_);
 
@@ -43,6 +43,9 @@ public:
     void run();
 
 private:
+    std::ostream & out;
+    bool is_full_name;
+
     boost::container::stable_vector<boost::filesystem::path> include_dirs;
     std::vector<boost::filesystem::path> exclude_dirs;
 

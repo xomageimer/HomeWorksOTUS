@@ -52,5 +52,5 @@ void Directory_Compositer::run() {
         }
     }
     fc.Search_Duplicate();
-    fc.Output();
+    fc.Output(out, is_full_name);
 }
