@@ -8,7 +8,6 @@ install:
   - sudo apt-get install g++-9 cmake
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 60
   - sudo apt-get install libboost-all-dev
-  - sudo apt-get install boost-uuid
 before_script:
   - cd HW7
   - ls
