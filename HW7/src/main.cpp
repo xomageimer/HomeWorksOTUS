@@ -7,9 +7,7 @@
 
 namespace po = boost::program_options;
 
-void set_bulk(size_t bulk) {
-    std::cout << "bulk size is " << bulk << std::endl;
-}
+// TODO починить md5, понять почему первый aas читаеся неверно в буффер и протестировать остальной функционал
 
 int main(int argc, const char **argv) {
     try {
