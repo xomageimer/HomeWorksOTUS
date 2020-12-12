@@ -83,13 +83,11 @@ bool Files_Collection::Accum_Hashsum(file_hashsum::iterator main,
         return false;
 }
 
-using boost::uuids::detail::md5;
-
-std::string toString(const md5::digest_type &digest)
+std::string toString(const boost::uuids::detail::md5::digest_type &digest)
 {
     const auto charDigest = reinterpret_cast<const char *>(&digest);
     std::string result;
-    boost::algorithm::hex(charDigest, charDigest + sizeof(md5::digest_type), std::back_inserter(result));
+    boost::algorithm::hex(charDigest, charDigest + sizeof(boost::uuids::detail::md5::digest_type), std::back_inserter(result));
     return result;
 }
 
