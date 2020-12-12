@@ -2,6 +2,7 @@
 #define OTUSHOMEWORKS_FILES_COLLECTION_H
 
 #include <vector>
+#include <map>
 #include <iostream>
 #include <fstream>
 #include <boost/filesystem/operations.hpp>
