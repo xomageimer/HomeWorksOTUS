@@ -228,7 +228,7 @@ TEST_F(Bayan, test_3) {
         std::string commnad_i = "-i" + main_directory;
         std::vector<const char *> argv{
                 "--hasher=crc32",
-                "-s5",
+                "-s45",
                 commnad_i.c_str(),
                 "--scan=1",
                 "-m*.txt"

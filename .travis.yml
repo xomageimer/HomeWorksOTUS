@@ -3,12 +3,17 @@ language: cpp
 compiler: clang
 before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo add-apt-repository ppa:boost-latest/ppa
   - sudo apt-get update -qq
 install:
   - sudo apt-get install g++-9 cmake
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 60
+  - sudo apt-get install libboost-system-dev
+  - sudo apt-get install libboost-program-options-dev
+  - sudo apt-get install libboost-regex-dev
+  - sudo apt-get install libboost-filesystem-dev
 before_script:
-  - cd HW6
+  - cd HW7
   - ls
   - gcc --version
   - g++ --version
@@ -22,4 +27,4 @@ deploy:
   - provider: script
     skip_cleanup: true
     script:
-      - curl -f -T bulk-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uhamstergamer:$BINTRAY_API_KEY "https://api.bintray.com/content/hamstergamer/otus_cpp/bulk/$TRAVIS_BUILD_NUMBER/bulk-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
+      - curl -f -T bayan-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uhamstergamer:$BINTRAY_API_KEY "https://api.bintray.com/content/hamstergamer/otus_cpp/bayan/$TRAVIS_BUILD_NUMBER/bayan-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
