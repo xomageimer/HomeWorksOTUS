@@ -1,5 +1,8 @@
 #include "Files_Collection.h"
 
+#include <sstream>
+#include <boost/algorithm/hex.hpp>
+
 void Files_Collection::set_hasher(const Files_Collection::HASH & h) {
     cur_hasher = h;
 }
@@ -80,6 +83,16 @@ bool Files_Collection::Accum_Hashsum(file_hashsum::iterator main,
         return false;
 }
 
+using boost::uuids::detail::md5;
+
+std::string toString(const md5::digest_type &digest)
+{
+    const auto charDigest = reinterpret_cast<const char *>(&digest);
+    std::string result;
+    boost::algorithm::hex(charDigest, charDigest + sizeof(md5::digest_type), std::back_inserter(result));
+    return result;
+}
+
 size_t Files_Collection::Hasher(char * mas) {
     switch (cur_hasher) {
         case HASH::MD5 : {
@@ -87,11 +100,10 @@ size_t Files_Collection::Hasher(char * mas) {
             hash.process_bytes(mas, block_size);
             boost::uuids::detail::md5::digest_type result;
             hash.get_digest(result);
-            size_t res;
-            for (auto & d : result){
-                res += d;
-            }
-            return res;
+            std::stringstream res (toString(result));
+            size_t digit;
+            res >> digit;
+            return digit;
         }
         case HASH::CRC32 : {
             boost::crc_32_type result;
