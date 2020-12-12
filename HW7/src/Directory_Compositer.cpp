@@ -47,7 +47,7 @@ void Directory_Compositer::run() {
             }
         }
         if (is_go_around && !tmp.empty()){
-            auto it = include_dirs.insert(include_dirs.end(), tmp.begin(), tmp.end());
+            include_dirs.insert(include_dirs.end(), tmp.begin(), tmp.end());
             tmp.clear();
         }
     }

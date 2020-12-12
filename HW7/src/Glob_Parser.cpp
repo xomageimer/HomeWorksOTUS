@@ -38,12 +38,14 @@ void Glob_Parser::get_seq(char s) {
         case '-' :
             expr += s;
             break;
+        case '!' :
+            expr += '^';
+            break;
         case ']' :
             active_handler = std::bind(&Glob_Parser::get_sym, this, std::placeholders::_1);
             if (ispunct(expr.back()))
                 expr.erase(prev(expr.end()));
             expr += s;
-            expr += "+";
             expr += ")";
             break;
         default :
