@@ -86,7 +86,6 @@ TEST (bulk, DynamicInput_1){
 
     std::stringstream expected {
             "bulk: cmd1, cmd2\n"
-            "bulk: cmd3, cmd4, cmd5, cmd6\n"
     };
     EXPECT_EQ(answer.str(), expected.str());
 }

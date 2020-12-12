@@ -5,13 +5,11 @@ BulkReader::BulkReader(std::istream & in, std::shared_ptr<struct IController> co
 void BulkReader::ParseStandard(int n) {
     handler = std::make_shared<StandardHandler>(n);
     handler->SetController(controller);
-  //  handler->Execute(this);
 }
 
 void BulkReader::ParseDynamic(int n) {
     handler = std::make_shared<DynamicHandler>(n);
     handler->SetController(controller);
-   // handler->Execute(this);
 }
 
 std::string BulkReader::GetCmd() const {
@@ -76,8 +74,6 @@ Event StandardHandler::job() {
 
 void DynamicHandler::Execute(BulkReader *Application) {
     if (Application->CheckSymb(EOF)) {
-        counter_cmd = 0;
-        controller->HandleEvent(job());
         Application->End();
         return;
     }
