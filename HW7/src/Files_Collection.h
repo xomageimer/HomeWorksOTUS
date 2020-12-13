@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <set>
+#include <map>
 #include <iostream>
 #include <fstream>
 #include <boost/filesystem/operations.hpp>
