@@ -7,21 +7,15 @@
 struct Glob_Parser {
 public:
     Glob_Parser() = default;
-    explicit Glob_Parser(std::string new_str) {
-        parse(std::move(new_str));
-    };
+    explicit Glob_Parser(std::string new_str) { parse(std::move(new_str));};
     Glob_Parser(const Glob_Parser &) = default;
     Glob_Parser& operator=(const Glob_Parser &) = default;
     Glob_Parser(Glob_Parser &&) = default;
     Glob_Parser& operator=(Glob_Parser &&) = default;
 
-    inline void set_str(std::string new_str){
-        parse(std::move(new_str));
-    }
+    inline void set_str(std::string new_str){ parse(std::move(new_str));}
 
-    boost::regex operator()(){
-        return boost::regex((!expr.empty()) ? expr : ".*");
-    }
+    boost::regex operator()(){ return boost::regex((!expr.empty()) ? expr : ".*");}
 
 private:
     void parse(std::string);

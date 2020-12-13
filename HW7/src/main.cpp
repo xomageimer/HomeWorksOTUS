@@ -25,7 +25,6 @@ int main(int argc, const char **argv) {
                     ("scan", po::value<size_t>()->default_value(0),
                      "Level of scan (0 - only this level, 1 - all children levels)")
                     ("mask,m", po::value<std::string>(), "Mask of file. For example: [a-z]*.?onfig")
-                    ("count, c",  po::value<size_t>()->default_value(10), "The number at which the search for unique files will start.")
                     ;
             g_ci = std::move(ci);
         }

@@ -21,24 +21,13 @@ public:
 
     void Set_Hasher(const Files_Collection::HASH & hash);
 
-    inline void Set_Is_Go_Around(bool b){
-        is_go_around = b;
-    }
+    inline void Set_Is_Go_Around(bool b){ is_go_around = b;}
 
-    inline void Set_Minimum_File_Size(size_t size){
-        minimum_size = size;
-    }
-    inline void Set_Block_Size(size_t size){
-        fc.set_block_size(size);
-    }
+    inline void Set_Minimum_File_Size(size_t size){ minimum_size = size;}
 
-    inline void Set_Glob(const Glob_Parser & gb){
-        globParser = gb;
-    }
+    inline void Set_Block_Size(size_t size){ fc.set_block_size(size);}
 
-    inline void Set_Files_Count(size_t size){
-        files_count = size;
-    }
+    inline void Set_Glob(const Glob_Parser & gb){ globParser = gb;}
     
     void run();
 
@@ -50,9 +39,8 @@ private:
     std::vector<boost::filesystem::path> exclude_dirs;
 
     Glob_Parser globParser;
-    bool is_go_around;
-    size_t minimum_size;
-    size_t files_count;
+    bool is_go_around{};
+    size_t minimum_size{};
     Files_Collection fc;
 };
 

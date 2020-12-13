@@ -30,13 +30,13 @@ void Directory_Compositer::run() {
             boost::filesystem::file_status fs = boost::filesystem::status(*begin);
 
             switch (fs.type()) {
-                case boost::filesystem::regular_file:
-                    if (boost::regex_match(begin->path().filename().string(), globParser()) && boost::filesystem::file_size(begin->path()) >= minimum_size){
-                        fc.set_path(begin->path());
-                        if (fc.get_files_count() >= files_count)
-                            fc.Search_Duplicate();
+                case boost::filesystem::regular_file: {
+                    size_t size = boost::filesystem::file_size(begin->path());
+                    if (boost::regex_match(begin->path().filename().string(), globParser()) && size >= minimum_size){
+                        fc.set_path(begin->path(), size);
                     }
                     break;
+                }
                 case boost::filesystem::directory_file:
                     if (find(exclude_dirs.begin(), exclude_dirs.end(), *begin) == exclude_dirs.end() && is_go_around) {
                         tmp.push_back(begin->path());

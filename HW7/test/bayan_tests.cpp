@@ -129,11 +129,11 @@ TEST_F(Bayan, test_1) {
     if (!error) {
         std::stringstream answer;
         std::stringstream expected {
-            "\"boys.txt\"\n"
-            "\"names.txt\"\n"
+            "boys.txt\n"
+            "names.txt\n"
             "\n"
-            "\"horror_stories.txt\"\n"
-            "\"stories.txt\"\n"
+            "horror_stories.txt\n"
+            "stories.txt\n"
             "\n"
         };
         std::string commnad_i = "-i" + main_directory;
@@ -172,11 +172,11 @@ TEST_F(Bayan, test_2) {
     if (!error) {
         std::stringstream answer;
         std::stringstream expected {
-                "\"boys.txt\"\n"
-                "\"names.txt\"\n"
+                "boys.txt\n"
+                "names.txt\n"
                 "\n"
-                "\"horror_stories.txt\"\n"
-                "\"stories.txt\"\n"
+                "horror_stories.txt\n"
+                "stories.txt\n"
                 "\n"
         };
         std::string commnad_i = "-i" + main_directory;
@@ -215,14 +215,14 @@ TEST_F(Bayan, test_3) {
     if (!error) {
         std::stringstream answer;
         std::stringstream expected {
-                "\"boys.txt\"\n"
-                "\"names.txt\"\n"
+                "boys.txt\n"
+                "names.txt\n"
                 "\n"
-                "\"simple.txt\"\n"
-                "\"simple.txt\"\n"
+                "simple.txt\n"
+                "simple.txt\n"
                 "\n"
-                "\"horror_stories.txt\"\n"
-                "\"stories.txt\"\n"
+                "horror_stories.txt\n"
+                "stories.txt\n"
                 "\n"
         };
         std::string commnad_i = "-i" + main_directory;
@@ -264,8 +264,8 @@ TEST_F(Bayan, test_4) {
     if (!error) {
         std::stringstream answer;
         std::stringstream expected {
-                "\"horror_stories.txt\"\n"
-                "\"stories.txt\"\n"
+                "horror_stories.txt\n"
+                "stories.txt\n"
                 "\n"
         };
         std::string commnad_i = "-i" + main_directory;

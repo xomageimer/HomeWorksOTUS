@@ -55,9 +55,6 @@ void Command_interpreter::execute(Directory_Compositer & directoryCompositer) co
         if (m_vm.count("mask")){
             directoryCompositer.Set_Glob(Glob_Parser(m_vm["mask"].as<std::string>()));
         }
-        if (m_vm.count("count")){
-            directoryCompositer.Set_Files_Count(m_vm["count"].as<size_t>());
-        }
     }
     directoryCompositer.run();
 }
