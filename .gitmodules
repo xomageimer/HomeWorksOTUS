@@ -19,3 +19,6 @@
 [submodule "HW7/contrib/boostorg"]
 	path = HW7/contrib/boostorg
 	url = https://github.com/boostorg/uuid.git
+[submodule "HW8/contrib/gtest"]
+	path = HW8/contrib/gtest
+	url = https://github.com/google/googletest.git

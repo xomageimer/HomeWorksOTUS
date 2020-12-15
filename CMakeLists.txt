@@ -21,4 +21,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 #add_subdirectory(HW6)
 
-add_subdirectory(HW7)
+#add_subdirectory(HW7)
+
+add_subdirectory(HW8)
