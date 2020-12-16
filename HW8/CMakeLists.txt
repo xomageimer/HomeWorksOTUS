@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-set(PROJECT_NAME_ bulk)
+set(PROJECT_NAME_ bulk_mt)
 if($ENV{TRAVIS_BUILD_NUMBER})
     project(${PROJECT_NAME_}  VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 else()

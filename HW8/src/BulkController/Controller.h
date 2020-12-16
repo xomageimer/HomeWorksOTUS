@@ -14,7 +14,7 @@ struct IController {
 protected:
     std::string command;
 public:
-    virtual void HandleEvent([[maybe_unused]]const Event&, std::string str = "");
+    virtual void HandleEvent([[maybe_unused]]const Event&, std::string str = "") = 0;
 };
 
 struct BulkController : IController{

@@ -2,10 +2,6 @@
 
 #include <utility>
 
-void IController::HandleEvent([[maybe_unused]]const Event & event, std::string str) {
-    command = std::move(str);
-}
-
 void BulkController::HandleEvent(const Event & e, std::string str) {
     command = std::move(str);
     switch (e.type){

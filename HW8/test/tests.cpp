@@ -1,8 +1,6 @@
 #include <gtest/gtest.h>
 
 #include <sstream>
-#include <fstream>
-
 
 #include "Bulk.h"
 
@@ -22,9 +20,10 @@ TEST (bulk, ConsoleLogger){
 
     blk.SetController(std::make_shared<BulkController>());
     blk.SetBulkModel(input);
-    blk.SubscribeLogger("Console_Outputer", std::make_shared<ConsoleLogger>(answer));
+    blk.SubscribeLogger("Console_Outputer", std::make_shared<ConsoleLogger>(std::cerr));
     blk.run(NUMBERS);
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
     std::stringstream expected {
             "bulk: cmd1, cmd2, cmd3\n"
@@ -53,7 +52,9 @@ TEST (bulk, FileLogger){
     blk.run(NUMBERS);
     auto safe_time = TimeManager::last_time;
 
-    file_with_answer.open(std::filesystem::current_path()/("bulk" + (std::to_string(safe_time)) + ".log"));
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
+
+    file_with_answer.open(std::filesystem::current_path()/("bulk" + (std::to_string(safe_time)) + "_0.log"));
     answer << file_with_answer.rdbuf();
 
     std::stringstream expected {
@@ -83,6 +84,7 @@ TEST (bulk, DynamicInput_1){
     blk.SubscribeLogger("Console_Outputer", std::make_shared<ConsoleLogger>(answer));
     blk.run(NUMBERS);
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
     std::stringstream expected {
             "bulk: cmd1, cmd2\n"
@@ -120,6 +122,7 @@ TEST (bulk, DynamicInput_2){
     blk.SubscribeLogger("Console_Outputer", std::make_shared<ConsoleLogger>(answer));
     blk.run(NUMBERS);
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
     std::stringstream expected {
             "bulk: cmd1, cmd2\n"
@@ -158,6 +161,7 @@ TEST (bulk, DynamicInput_3){
     blk.SubscribeLogger("Console_Outputer", std::make_shared<ConsoleLogger>(answer));
     blk.run(NUMBERS);
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
     std::stringstream expected {
             "bulk: cmd1\n"
@@ -207,6 +211,7 @@ TEST (bulk, DynamicInput_4){
     blk.SubscribeLogger("Console_Outputer", std::make_shared<ConsoleLogger>(answer));
     blk.run(NUMBERS);
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
     std::stringstream expected {
             "bulk: cmd1, cmd2\n"
@@ -235,6 +240,7 @@ TEST (bulk, StaticInput_1){
     blk.SubscribeLogger("Console_Outputer", std::make_shared<ConsoleLogger>(answer));
     blk.run(NUMBERS);
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
     std::stringstream expected {
             "bulk: cmd1\n"
@@ -263,6 +269,7 @@ TEST (bulk, StaticInput_2){
     blk.SubscribeLogger("Console_Outputer", std::make_shared<ConsoleLogger>(answer));
     blk.run(NUMBERS);
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
     std::stringstream expected {
             "bulk: cmd1, cmd2, cmd3, cmd4, cmd5\n"
@@ -292,6 +299,7 @@ TEST (bulk, StaticInput_3){
     blk.SubscribeLogger("Console_Outputer", std::make_shared<ConsoleLogger>(answer));
     blk.run(NUMBERS);
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
     std::stringstream expected {
             "bulk: cmd1, cmd2, cmd3, cmd4, cmd5\n"

@@ -31,3 +31,9 @@ void Bulk::run(char * p) {
     while (data.model->Process()) {}
 }
 
+void Bulk::run(int c) {
+    data.model.emplace(*inp, data.controller, c);
+    this->data.model->ParseStandard(c);
+    while (data.model->Process()) {}
+}
+

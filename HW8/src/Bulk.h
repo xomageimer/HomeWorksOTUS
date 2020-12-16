@@ -17,6 +17,8 @@ struct Bulk {
 
     void run(char *);
 
+    void run(int);
+
 private:
     struct Data{
         std::optional<BulkReader> model;

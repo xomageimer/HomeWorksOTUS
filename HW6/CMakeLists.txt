@@ -16,7 +16,7 @@ add_executable(${PROJECT_NAME_}
         src/BulkModel/BulkReader.cpp
         src/BulkView/OutputManager.cpp
         src/TimeManager/TimeManager.cpp
-        ../HW7/src/main.cpp)
+        )
 
 target_include_directories(${PROJECT_NAME_} PRIVATE src/BulkController src/BulkModel src/BulkView src/TimeManager)
 
