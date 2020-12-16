@@ -20,7 +20,7 @@ TEST (bulk, ConsoleLogger){
 
     blk.SetController(std::make_shared<BulkController>());
     blk.SetBulkModel(input);
-    blk.SubscribeLogger("Console_Outputer", std::make_shared<ConsoleLogger>(std::cerr));
+    blk.SubscribeLogger("Console_Outputer", std::make_shared<ConsoleLogger>(answer));
     blk.run(NUMBERS);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(300));
@@ -50,10 +50,9 @@ TEST (bulk, FileLogger){
     blk.SetBulkModel(input);
     blk.SubscribeLogger("File_Outputer", std::make_shared<FileLogger>(std::filesystem::current_path()));
     blk.run(NUMBERS);
-    auto safe_time = TimeManager::last_time;
 
     std::this_thread::sleep_for(std::chrono::milliseconds(300));
-
+    auto safe_time = TimeManager::last_time;
     file_with_answer.open(std::filesystem::current_path()/("bulk" + (std::to_string(safe_time)) + "_0.log"));
     answer << file_with_answer.rdbuf();
 

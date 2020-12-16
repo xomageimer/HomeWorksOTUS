@@ -4,55 +4,54 @@ using namespace std::chrono_literals;
 
 void OutputManager::subscribe(const std::string &subscribe_name, std::shared_ptr<struct ILogger> listener) {
     listeners.emplace(std::piecewise_construct_t(), std::forward_as_tuple(subscribe_name), std::forward_as_tuple(listener));
-    thread_pool.emplace_back(std::thread{[capture = listener.get(), this] { capture->output(proxy, thread_pool.size() - 1); }});
 }
 
 void OutputManager::unsubscribe(const std::string &subscribe_name) {
-    listeners.erase(subscribe_name);
+    auto it = listeners.find(subscribe_name);
+    if (it != listeners.end()){
+        it->second->make_quit();
+        listeners.erase(it);
+    }
 }
 
 void OutputManager::notify(const std::string & command) {
     if (!command.empty())
-        buffer.back().emplace_back(command);
+        cur_block.push_back(command);
 }
 
 void OutputManager::drop() {
-    if (buffer.empty())
-        buffer.push({});
-    else if (!buffer.front().empty()) {
-        cv.notify_all();
-        buffer.push({});
+    if (cur_block.empty())
+        return;
+    else {
+        for (auto &obj : listeners) {
+            obj.second->update(cur_block);
+        }
+        cur_block.clear();
     }
-}
-
-OutputManager::OutputManager() : proxy(buffer, cv, cv_m) {
-    buffer.push({});
 }
 
 OutputManager::~OutputManager() {
-    make_quit();
-    cv.notify_all();
-    for (auto & t : thread_pool){
-        t.join();
+    for (auto & l : listeners){
+        l.second->make_quit();
     }
 }
 
-void ConsoleLogger::output(ProxyBuffer & buf, [[maybe_unused]] size_t id) {
-    while (!buf.quit) {
-        std::unique_lock<std::mutex> lk(buf.cv_mutex);
+void ConsoleLogger::output([[maybe_unused]] size_t id) {
+    while (!quit) {
+        std::unique_lock<std::mutex> lk(cv_m);
 
-        buf.cv.wait(lk, [&buf]{
-            return (!buf.GetBuffer().empty() && !buf.console_completed) || buf.quit;
+        cv.wait(lk, [&]{
+            return !buffer.empty() || quit;
         });
 
-        if (!buf.GetBuffer().empty() && !buf.console_completed) {
-            Block buffer = buf.GetBuffer();
-            buf.console_completed = true;
+        if (!buffer.empty()) {
+            Block buf = std::move(buffer.front());
+            buffer.pop();
             lk.unlock();
 
             bool is_first = true;
             out << "bulk: ";
-            for (auto &i : buffer) {
+            for (auto &i : buf) {
                 if (is_first) {
                     out << i;
                     is_first = false;
@@ -64,7 +63,16 @@ void ConsoleLogger::output(ProxyBuffer & buf, [[maybe_unused]] size_t id) {
     }
 }
 
-FileLogger::FileLogger(const std::filesystem::path & cur_path): fs(cur_path) {
+ConsoleLogger::ConsoleLogger(std::ostream &os) : out(os) {
+    size_t s = thread_pool.size();
+    thread_pool.emplace_back(std::thread{[s, this] { output(s); }});
+}
+
+FileLogger::FileLogger(std::filesystem::path cur_path, size_t thread_size): fs(std::move(cur_path)) {
+    for (size_t i = 0; i < thread_size; i++) {
+        size_t s = thread_pool.size();
+        thread_pool.emplace_back(std::thread{[s, this] { output(s); }});
+    }
 }
 
 void FileLogger::CreateNewFile(size_t id) {
@@ -75,23 +83,25 @@ void FileLogger::CreateNewFile(size_t id) {
     ofile = new std::ofstream(fs/("bulk" + (std::to_string(time_manager.GetUnixTime())) + "_" + std::to_string(id) + ".log"));
 }
 
-void FileLogger::output(ProxyBuffer & buf, size_t id) {
-    while (!buf.quit) {
-        std::unique_lock<std::mutex> lk(buf.cv_mutex);
+void FileLogger::output(size_t id) {
+    while (!quit) {
+        std::unique_lock<std::mutex> lk(cv_m);
 
-        buf.cv.wait_for(lk, 100ms, [&buf]{
-            return (!buf.GetBuffer().empty() && buf.console_completed) || buf.quit ;
+        cv.wait(lk, [&]{
+            return !buffer.empty() || quit;
         });
 
-        if (!buf.GetBuffer().empty() && buf.console_completed) {
-            Block buffer = std::move(buf.GetBuffer());
-            buf.DeleteBlock();
+        if (!buffer.empty()) {
+            Block buf = std::move(buffer.front());
+            buffer.pop();
             lk.unlock();
+
+//            std::this_thread::sleep_for(5s);
 
             CreateNewFile(id);
             bool is_first = true;
             *ofile << "bulk: ";
-            for (auto &i : buffer) {
+            for (auto &i : buf) {
                 if (is_first) {
                     *ofile << i;
                     is_first = false;
@@ -103,15 +113,20 @@ void FileLogger::output(ProxyBuffer & buf, size_t id) {
     }
 }
 
-Block & ProxyBuffer::GetBuffer() {
-    return buffer.front();
+void ILogger::make_quit() const {
+    quit = true;
 }
 
-void ProxyBuffer::DeleteBlock() {
-    buffer.pop();
-    console_completed = false;
+void ILogger::update(const Block &bl) {
+    std::lock_guard<std::mutex> lg(cv_m);
+    buffer.emplace(bl);
+    cv.notify_one();
 }
 
-bool ProxyBuffer::Empty() const {
-    return buffer.empty();
+ILogger::~ILogger() {
+    for (auto & t : thread_pool){
+        make_quit();
+        cv.notify_all();
+        t.join();
+    }
 }
