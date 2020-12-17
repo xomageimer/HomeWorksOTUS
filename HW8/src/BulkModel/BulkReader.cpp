@@ -1,6 +1,8 @@
 #include "BulkReader.h"
 
-BulkReader::BulkReader(std::istream & in, std::shared_ptr<struct IController> contr, int c) : input(in), controller(contr), counter_cmd(c) {}
+#include <utility>
+
+BulkReader::BulkReader(std::istream & in, std::shared_ptr<struct IController> contr, int c) : input(in), controller(std::move(contr)), counter_cmd(c) {}
 
 void BulkReader::ParseStandard(int n) {
     handler = std::make_shared<StandardHandler>(n);

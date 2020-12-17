@@ -1,5 +1,7 @@
 #include "Bulk.h"
 
+#include <sstream>
+
 void Bulk::SetBulkModel(std::istream &input) {
     inp = &input;
 }
@@ -12,7 +14,17 @@ void Bulk::SubscribeLogger(const std::string & sub_name, std::shared_ptr<ILogger
     this->data.controller->manager.subscribe(sub_name, logger);
 }
 
-void Bulk::run(char * p) {
+bool Bulk::run() {
+    return data.model->Process();
+}
+
+void Bulk::run(int c) {
+    data.model.emplace(*inp, data.controller, c);
+    this->data.model->ParseStandard(c);
+    while (data.model->Process()) {}
+}
+
+void Bulk::build(char * p) {
     int c;
     try {
         c = std::stoi(p);
@@ -28,12 +40,13 @@ void Bulk::run(char * p) {
     }
     data.model.emplace(*inp, data.controller, c);
     this->data.model->ParseStandard(c);
-    while (data.model->Process()) {}
 }
 
-void Bulk::run(int c) {
-    data.model.emplace(*inp, data.controller, c);
-    this->data.model->ParseStandard(c);
-    while (data.model->Process()) {}
+void Bulk::GetStr(const char * str, size_t s) {
+    dynamic_cast<std::stringstream *>(inp)->write(str, s);
+}
+
+void Bulk::SetDefaultBulkMode() {
+    inp = new std::stringstream ();
 }
 

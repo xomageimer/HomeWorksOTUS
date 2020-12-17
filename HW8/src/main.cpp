@@ -9,5 +9,7 @@ int main( [[maybe_unused]] int argc, char* argv[]){
     blk.SubscribeLogger("Console_Outputer", std::make_shared<ConsoleLogger>(std::cout));
     blk.SubscribeLogger("File_Outputer", std::make_shared<FileLogger>(std::filesystem::current_path(), 2));
 
-    blk.run(argv[1]);
+    blk.build(argv[1]);
+    while (blk.run())
+        continue;
 }

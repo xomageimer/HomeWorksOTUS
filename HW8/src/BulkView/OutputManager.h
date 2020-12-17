@@ -24,7 +24,6 @@ private:
 
     std::unordered_map<std::string, std::shared_ptr<struct ILogger>> listeners;
 public:
-    ~OutputManager();
     void subscribe(const std::string & subscribe_name, std::shared_ptr<struct ILogger> listener);
     void unsubscribe(const std::string & subscribe_name);
     void notify(const std::string &);

@@ -9,7 +9,6 @@ void OutputManager::subscribe(const std::string &subscribe_name, std::shared_ptr
 void OutputManager::unsubscribe(const std::string &subscribe_name) {
     auto it = listeners.find(subscribe_name);
     if (it != listeners.end()){
-        it->second->make_quit();
         listeners.erase(it);
     }
 }
@@ -27,12 +26,6 @@ void OutputManager::drop() {
             obj.second->update(cur_block);
         }
         cur_block.clear();
-    }
-}
-
-OutputManager::~OutputManager() {
-    for (auto & l : listeners){
-        l.second->make_quit();
     }
 }
 

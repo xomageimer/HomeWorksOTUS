@@ -11,13 +11,19 @@ struct Bulk {
 
     void SetBulkModel(std::istream& input);
 
+    void SetDefaultBulkMode();
+
     void SetController(std::shared_ptr<BulkController> controller);
 
     void SubscribeLogger(const std::string & sub_name, std::shared_ptr<ILogger> logger);
 
-    void run(char *);
+    void GetStr(const char * msg, std::size_t msg_size);
 
-    void run(int);
+    void build(char *);
+    bool run();
+
+    // for tests
+    [[deprecated]] void run(int);
 
 private:
     struct Data{
